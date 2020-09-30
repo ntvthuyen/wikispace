@@ -113,6 +113,7 @@ public class OnResultClick : MonoBehaviour
         }
     }
     public void OnButtonClick() {
+        currenttitle = title.text;
         SetActiveAll(pretitle, false);
         if (dicpanels.ContainsKey(currenttitle))
         {
@@ -121,7 +122,6 @@ public class OnResultClick : MonoBehaviour
         }
         else
         {
-            currenttitle = title.text;
             StartCoroutine(ShowPage());
         }
         //HTMLParse();
@@ -147,7 +147,8 @@ public class OnResultClick : MonoBehaviour
         return 0;
     }
     static public void SetActiveAll(string title, bool isactive)
-    { 
+    {
+        Debug.Log("print" + title);
         if(dicpanels.ContainsKey(title)){
             for(int i = 0; i < dicpanels[title].Count;++i){
                 dicpanels[title][i].SetActive(isactive);
@@ -198,6 +199,7 @@ public class OnResultClick : MonoBehaviour
             int type = isHeader(item.OuterHtml);
             if (type != 0) {
                 panels[currentContent].transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = textcontent.Trim();
+                yield return new WaitForSeconds(2);
                 panels.Add(Instantiate(Resources.Load("Prefabs/Content", typeof(GameObject)), new Vector3(-2 - 8 * (1 + currentContent), -2.5f, 0), Quaternion.identity) as GameObject);
                 Canvas p = panels[currentContent + 1].transform.GetChild(1).gameObject.GetComponent<Canvas>();
                 p.sortingOrder = -(currentContent + 1);
@@ -212,7 +214,8 @@ public class OnResultClick : MonoBehaviour
                     previousSection = currentContent;
                     Canvas p1 = panels[currentContent + 1].transform.GetChild(2).gameObject.GetComponent<Canvas>();
                     p1.sortingOrder = -(currentContent + 1);
-                } else if (type == 2)
+                }
+                else if (type == 2)
                 {
                     TextMeshProUGUI presection = panels[currentContent + 1].transform.GetChild(2).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
                     TextMeshProUGUI section = panels[currentContent + 1].transform.GetChild(3).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
@@ -268,10 +271,8 @@ public class OnResultClick : MonoBehaviour
                     p2.sortingOrder = -(currentContent + 1);
                     p3.sortingOrder = -(currentContent + 1);
                     p4.sortingOrder = -(currentContent + 1);
-                      
                 }
                 ++currentContent;
-                yield return new WaitForSeconds(5);
             }
             else
             if (item.Text() != "")
@@ -281,7 +282,6 @@ public class OnResultClick : MonoBehaviour
         }
         pretitle = currenttitle;
         dicpanels.Add(currenttitle, panels);
-       
     }
 
 
