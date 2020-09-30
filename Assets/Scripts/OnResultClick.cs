@@ -22,6 +22,7 @@ public class OnResultClick : MonoBehaviour
     public Text title;
     public static string currenttitle = "";
     static public Dictionary<string, List<GameObject>> dicpanels = new Dictionary<string, List<GameObject>>();
+    private List<GameObject> imagepanels = new List<GameObject>();
     public Button btn;
 
     const string APIUrl = "https://en.wikipedia.org/w/api.php";
@@ -81,35 +82,49 @@ public class OnResultClick : MonoBehaviour
                 {
                     Debug.Log(json);
                     var values = JsonConvert.DeserializeObject<ImageList>(json);
-
+                    List<GameObject> panels = new List<GameObject>();
+                    foreach (GameObject ip in imagepanels) {
+                        GameObject.Destroy(ip);
+                    }
+                    imagepanels.Clear();
                     html = values.query.pages[0].images[0]["title"];
+                    int i = 0;
+                    foreach (Dictionary<string, string> item in values.query.pages[0].images) {
+                       
+                        string title = item["title"].Replace("File:","");
+                        if (!title.Contains("svg"))
+                        {
+                            imagepanels.Add(Instantiate(Resources.Load("Prefabs/ImageBlock", typeof(GameObject)), new Vector3(-14 + i * 8, 0, -18), new Quaternion(0,180f,0,0)) as GameObject);
+                            StartCoroutine(ShowImage(GetImageFromUrl + title, i));
+                            ++i;
+                            yield return new WaitForSeconds(2);
+                        }
+                    }
                     Debug.Log(html);
                 }
+
                 //StartCoroutine(HTMLParse());
             }
         }
     }
-    IEnumerator ShowImage()
+    IEnumerator ShowImage(string url, int i)
     {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(APIUrl + ParseAction + currenttitle))
-        {
-            // Request and wait for the desired page.
-            yield return webRequest.SendWebRequest();
+        UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
 
-            if (webRequest.isNetworkError)
-            {
-            }
-            else
-            {
-                // Show results as text
-                string json = (webRequest.downloadHandler.text);
-                Debug.Log(json);
-                var values = JsonConvert.DeserializeObject<PageContent>(json);
-                html = values.query["pages"][0]["extract"];
-                Debug.Log(html);
-                StartCoroutine(HTMLParse());
-                // Or retrieve results as binary data
-            }
+        yield return request.SendWebRequest();
+
+        // calling this function with StartCoroutine solves the problem
+        Debug.Log("Why on earh is this never called?");
+        if (request.isNetworkError || request.isHttpError)
+            Debug.Log(request.error);
+        else
+        {
+            int _width = ((DownloadHandlerTexture)request.downloadHandler).texture.width;
+            int _height =  ((DownloadHandlerTexture)request.downloadHandler).texture.height;
+            int width = 600 * _width / _height;
+            int height = 600 * _height / _width;
+            imagepanels[i].GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
+            imagepanels[i].GetComponent<RawImage>().texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
         }
     }
     public void OnButtonClick() {
@@ -155,6 +170,8 @@ public class OnResultClick : MonoBehaviour
             }
         }
     }
+
+
 
     public IEnumerator HTMLParse() {
 
@@ -281,7 +298,8 @@ public class OnResultClick : MonoBehaviour
             }
         }
         pretitle = currenttitle;
-        dicpanels.Add(currenttitle, panels);
+        if(!dicpanels.ContainsKey(currenttitle))
+            dicpanels.Add(currenttitle, panels);
     }
 
 
