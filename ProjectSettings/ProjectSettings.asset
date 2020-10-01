@@ -125,7 +125,9 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleVersion: 0.1
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: -4563241150783594798, guid: 971742b3997581a4e99dd7a0184e07be, type: 2}
+  - {fileID: -5853217924731295235, guid: 9e517de3e19f8af4f89d6cea93925b15, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -574,7 +576,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
-    1: VIU_PLUGIN;VIU_XR_GENERAL_SETTINGS;VIU_XR_PACKAGE_METADATA_STORE
+    1: VIU_PLUGIN;VIU_XR_GENERAL_SETTINGS;VIU_XR_PACKAGE_METADATA_STORE;VIU_SIUMULATOR_SUPPORT
     14: VIU_PLUGIN;VIU_SIUMULATOR_SUPPORT
   platformArchitecture: {}
   scriptingBackend: {}

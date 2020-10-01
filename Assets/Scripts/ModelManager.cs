@@ -15,10 +15,12 @@ public class ModelManager : MonoBehaviour
         modelPool = GameObject.Find("ModelPool");
 
         modelNameFromTitle = new Dictionary<string, string>();
-        modelNameFromTitle.Add("Church_(building)", "Church");
+        modelNameFromTitle.Add("Church", "Church");
+        modelNameFromTitle.Add("Church (building)", "Church");
         modelNameFromTitle.Add("Tiger", "Tiger");
         modelNameFromTitle.Add("Cat", "Cat");
-        modelNameFromTitle.Add("Rock_(geology)", "Stones");
+        modelNameFromTitle.Add("Rock", "Stones");
+        modelNameFromTitle.Add("Rock (geology)", "Stones");
         modelNameFromTitle.Add("Butterfly", "Butterfly");
         modelNameFromTitle.Add("Rabbit", "Rabbit");
         modelNameFromTitle.Add("Spider", "Spider");
