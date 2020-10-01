@@ -53,6 +53,7 @@ public class OnResultClick : MonoBehaviour
                 var values = JsonConvert.DeserializeObject<PageContent>(json);
                 html = values.query["pages"][0]["extract"];
                 Debug.Log(html);
+                ModelManager.ShowModel(currenttitle);
                 StartCoroutine(HTMLParse());
                 StartCoroutine(GetListImage());
                 // Or retrieve results as binary data
@@ -94,7 +95,7 @@ public class OnResultClick : MonoBehaviour
                         string title = item["title"].Replace("File:","");
                         if (!title.Contains("svg"))
                         {
-                            imagepanels.Add(Instantiate(Resources.Load("Prefabs/ImageBlock", typeof(GameObject)), new Vector3(-14 + i * 8, 0, -18), new Quaternion(0,180f,0,0)) as GameObject);
+                            imagepanels.Add(Instantiate(Resources.Load("Prefabs/ImageBlock", typeof(GameObject)), new Vector3(-14 + i * 12  , 0, -24), new Quaternion(0,180f,0,0)) as GameObject);
                             StartCoroutine(ShowImage(GetImageFromUrl + title, i));
                             ++i;
                             yield return new WaitForSeconds(2);
