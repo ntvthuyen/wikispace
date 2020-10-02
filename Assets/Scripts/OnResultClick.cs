@@ -49,10 +49,8 @@ public class OnResultClick : MonoBehaviour
             {
                 // Show results as text
                 string json = (webRequest.downloadHandler.text);
-                Debug.Log(json);
                 var values = JsonConvert.DeserializeObject<PageContent>(json);
                 html = values.query["pages"][0]["extract"];
-                Debug.Log(html);
                 ModelManager.ShowModel(currenttitle);
                 StartCoroutine(HTMLParse());
                 StartCoroutine(GetListImage());
@@ -63,7 +61,6 @@ public class OnResultClick : MonoBehaviour
     IEnumerator GetListImage()
     {
         string replacedtitle = currenttitle.Replace(" ", "_");
-        Debug.Log(replacedtitle);
         using (UnityWebRequest webRequest = UnityWebRequest.Get(APIUrl + GetImage + replacedtitle   ))
         {
             // Request and wait for the desired page.
@@ -81,7 +78,6 @@ public class OnResultClick : MonoBehaviour
                 //TODO: find sub set if it contains "images" then 
                 if (json.Contains("images"))
                 {
-                    Debug.Log(json);
                     var values = JsonConvert.DeserializeObject<ImageList>(json);
                     List<GameObject> panels = new List<GameObject>();
                     foreach (GameObject ip in imagepanels) {
@@ -101,7 +97,6 @@ public class OnResultClick : MonoBehaviour
                             yield return new WaitForSeconds(2);
                         }
                     }
-                    Debug.Log(html);
                 }
 
                 //StartCoroutine(HTMLParse());
@@ -114,14 +109,11 @@ public class OnResultClick : MonoBehaviour
 
         yield return request.SendWebRequest();
 
-        // calling this function with StartCoroutine solves the problem
-        Debug.Log("Why on earh is this never called?");
-        if (request.isNetworkError || request.isHttpError)
-            Debug.Log(request.error);
+        if (request.isNetworkError || request.isHttpError) ;
         else
         {
             int _width = ((DownloadHandlerTexture)request.downloadHandler).texture.width;
-            int _height =  ((DownloadHandlerTexture)request.downloadHandler).texture.height;
+            int _height = ((DownloadHandlerTexture)request.downloadHandler).texture.height;
             int width = 600 * _width / _height;
             int height = 600 * _height / _width;
             imagepanels[i].GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
@@ -164,7 +156,7 @@ public class OnResultClick : MonoBehaviour
     }
     static public void SetActiveAll(string title, bool isactive)
     {
-        Debug.Log("print" + title);
+
         if(dicpanels.ContainsKey(title)){
             for(int i = 0; i < dicpanels[title].Count;++i){
                 dicpanels[title][i].SetActive(isactive);
@@ -203,22 +195,21 @@ public class OnResultClick : MonoBehaviour
         int previousSection = 0;
         int previousSubSection = 0;
         int previousSubSubsection = 0;
-        panels.Add(Instantiate(Resources.Load("Prefabs/Content", typeof(GameObject)), new Vector3(-2, -2.5f, 0), Quaternion.identity) as GameObject);
+        panels.Add(Instantiate(Resources.Load("Prefabs/Content", typeof(GameObject)), new Vector3(-2, -3.5f, 0), Quaternion.identity) as GameObject);
         panels[0].transform.GetChild(0).GetChild(0).gameObject.GetComponent<Text>().text = currenttitle;
         panels[0].transform.GetChild(2).gameObject.SetActive(false);
         panels[0].transform.GetChild(3).gameObject.SetActive(false);
         panels[0].transform.GetChild(4).gameObject.SetActive(false);
         panels[0].transform.GetChild(5).gameObject.SetActive(false);
         string textcontent = "";
-        
         foreach (var item in test)
         {
-            
             int type = isHeader(item.OuterHtml);
             if (type != 0) {
                 panels[currentContent].transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = textcontent.Trim();
+                textcontent = "";
                 yield return new WaitForSeconds(2);
-                panels.Add(Instantiate(Resources.Load("Prefabs/Content", typeof(GameObject)), new Vector3(-2 - 8 * (1 + currentContent), -2.5f, 0), Quaternion.identity) as GameObject);
+                panels.Add(Instantiate(Resources.Load("Prefabs/Content", typeof(GameObject)), new Vector3(-2 - 8 * (1 + currentContent), -3.5f, 0), Quaternion.identity) as GameObject);
                 Canvas p = panels[currentContent + 1].transform.GetChild(1).gameObject.GetComponent<Canvas>();
                 p.sortingOrder = -(currentContent + 1);
                 if (type == 1)
@@ -293,11 +284,12 @@ public class OnResultClick : MonoBehaviour
                 ++currentContent;
             }
             else
-            if (item.Text() != "")
+            if (item.Text() != "" && !item.OuterHtml.Contains("</html>") && !item.OuterHtml.Contains("</body>") && !item.OuterHtml.Contains("</ul>"))
             {
                 textcontent += item.Text() + '\n';
             }
         }
+        panels[currentContent].transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = textcontent.Trim();
         pretitle = currenttitle;
         if(!dicpanels.ContainsKey(currenttitle))
             dicpanels.Add(currenttitle, panels);

@@ -12253,6 +12253,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2071970, guid: cb3370c18187bb444b240cfb08dcc02f, type: 3}
+      propertyPath: far clip plane
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb3370c18187bb444b240cfb08dcc02f, type: 3}
 --- !u!4 &1790666903 stripped
