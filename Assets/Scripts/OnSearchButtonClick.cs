@@ -25,4 +25,6 @@ public class OnSearchButtonClick : MonoBehaviour
         yourButton = gameObject.GetComponent<Button>();
         yourButton.onClick.AddListener(OnSearchButtonPress);
     }
+
+  
 }

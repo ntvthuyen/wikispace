@@ -11,6 +11,7 @@ using System.Threading;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
 
+
 public class OnResultClick : MonoBehaviour
 {
     const string H2 = "<h2></h2>";
@@ -25,6 +26,7 @@ public class OnResultClick : MonoBehaviour
     private List<GameObject> imagepanels = new List<GameObject>();
     public Button btn;
 
+
     const string APIUrl = "https://en.wikipedia.org/w/api.php";
 
 
@@ -37,6 +39,8 @@ public class OnResultClick : MonoBehaviour
 
     IEnumerator ShowPage()
     {
+        if (currenttitle == pretitle) ;
+        else
         using (UnityWebRequest webRequest = UnityWebRequest.Get(APIUrl + ParseAction + currenttitle))
         {
             // Request and wait for the desired page.
@@ -45,18 +49,19 @@ public class OnResultClick : MonoBehaviour
             if (webRequest.isNetworkError)
             {
             }
-            else
+                else
             {
-                // Show results as text
+                    // Show results as text
                 string json = (webRequest.downloadHandler.text);
                 var values = JsonConvert.DeserializeObject<PageContent>(json);
                 html = values.query["pages"][0]["extract"];
                 ModelManager.ShowModel(currenttitle);
                 StartCoroutine(HTMLParse());
                 StartCoroutine(GetListImage());
-                // Or retrieve results as binary data
+
+                    // Or retrieve results as binary data
+               }
             }
-        }
     }
     IEnumerator GetListImage()
     {
@@ -70,8 +75,6 @@ public class OnResultClick : MonoBehaviour
             {
             }
             else
-            {
-            }
             {
                 // Show results as text
                 string json = (webRequest.downloadHandler.text);
@@ -94,9 +97,10 @@ public class OnResultClick : MonoBehaviour
                             imagepanels.Add(Instantiate(Resources.Load("Prefabs/ImageBlock", typeof(GameObject)), new Vector3(-14 + i * 12  , 0, -24), new Quaternion(0,180f,0,0)) as GameObject);
                             StartCoroutine(ShowImage(GetImageFromUrl + title, i));
                             ++i;
-                            yield return new WaitForSeconds(2);
+                            yield return new WaitForSeconds(0.5f);
                         }
                     }
+
                 }
 
                 //StartCoroutine(HTMLParse());
@@ -119,6 +123,7 @@ public class OnResultClick : MonoBehaviour
             imagepanels[i].GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
             imagepanels[i].GetComponent<RawImage>().texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
         }
+
     }
     public void OnButtonClick() {
         currenttitle = title.text;
@@ -167,7 +172,6 @@ public class OnResultClick : MonoBehaviour
 
 
     public IEnumerator HTMLParse() {
-
         List<GameObject>  panels = new List<GameObject>();
         var config = Configuration.Default;
 
@@ -208,7 +212,7 @@ public class OnResultClick : MonoBehaviour
             if (type != 0) {
                 panels[currentContent].transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = textcontent.Trim();
                 textcontent = "";
-                yield return new WaitForSeconds(2);
+                yield return new WaitForSeconds(0.5f);
                 panels.Add(Instantiate(Resources.Load("Prefabs/Content", typeof(GameObject)), new Vector3(-2 - 8 * (1 + currentContent), -3.5f, 0), Quaternion.identity) as GameObject);
                 Canvas p = panels[currentContent + 1].transform.GetChild(1).gameObject.GetComponent<Canvas>();
                 p.sortingOrder = -(currentContent + 1);
