@@ -56,8 +56,8 @@ public class OnResultClick : MonoBehaviour
                 var values = JsonConvert.DeserializeObject<PageContent>(json);
                 html = values.query["pages"][0]["extract"];
                 ModelManager.ShowModel(currenttitle);
-                StartCoroutine(HTMLParse());
-                StartCoroutine(GetListImage());
+                    StartCoroutine(HTMLParse());
+                    StartCoroutine(GetListImage());
 
                     // Or retrieve results as binary data
                }
@@ -197,8 +197,8 @@ public class OnResultClick : MonoBehaviour
         }
         int currentContent = 0;
         int previousSection = 0;
-        int previousSubSection = 0;
-        int previousSubSubsection = 0;
+        //int previousSubSection = 0;
+        //int previousSubSubsection = 0;
         panels.Add(Instantiate(Resources.Load("Prefabs/Content", typeof(GameObject)), new Vector3(-2, -3.5f, 0), Quaternion.identity) as GameObject);
         panels[0].transform.GetChild(0).GetChild(0).gameObject.GetComponent<Text>().text = currenttitle;
         panels[0].transform.GetChild(2).gameObject.SetActive(false);
@@ -206,30 +206,38 @@ public class OnResultClick : MonoBehaviour
         panels[0].transform.GetChild(4).gameObject.SetActive(false);
         panels[0].transform.GetChild(5).gameObject.SetActive(false);
         string textcontent = "";
+        int sortinglayer = 0;
         foreach (var item in test)
         {
             int type = isHeader(item.OuterHtml);
             if (type != 0) {
-                panels[currentContent].transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = textcontent.Trim();
-                textcontent = "";
-                yield return new WaitForSeconds(0.5f);
-                panels.Add(Instantiate(Resources.Load("Prefabs/Content", typeof(GameObject)), new Vector3(-2 - 8 * (1 + currentContent), -3.5f, 0), Quaternion.identity) as GameObject);
-                Canvas p = panels[currentContent + 1].transform.GetChild(1).gameObject.GetComponent<Canvas>();
-                p.sortingOrder = -(currentContent + 1);
                 if (type == 1)
                 {
-                    TextMeshProUGUI section = panels[currentContent + 1].transform.GetChild(2).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+                    // move them out if want to move back
+                    panels[sortinglayer].transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = textcontent.Trim();
+                    textcontent = "";
+                    yield return new WaitForSeconds(0.5f);
+                    panels.Add(Instantiate(Resources.Load("Prefabs/Content", typeof(GameObject)), new Vector3(-2 - 8 * (1 + sortinglayer), -3.5f, 0), Quaternion.identity) as GameObject);
+                    Canvas p = panels[sortinglayer + 1].transform.GetChild(1).gameObject.GetComponent<Canvas>();
+                    p.sortingOrder = -(sortinglayer);
+                    //
+
+
+
+                    TextMeshProUGUI section = panels[sortinglayer + 1].transform.GetChild(2).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
                     section.text = headers[currentContent];
-                    panels[currentContent + 1].transform.GetChild(0).gameObject.SetActive(false);
-                    panels[currentContent + 1].transform.GetChild(3).gameObject.SetActive(false);
-                    panels[currentContent + 1].transform.GetChild(4).gameObject.SetActive(false);
-                    panels[currentContent + 1].transform.GetChild(5).gameObject.SetActive(false);
+                    panels[sortinglayer + 1].transform.GetChild(0).gameObject.SetActive(false);
+                    //panels[currentContent + 1].transform.GetChild(3).gameObject.SetActive(false);
+                    //panels[currentContent + 1].transform.GetChild(4).gameObject.SetActive(false);
+                    //panels[currentContent + 1].transform.GetChild(5).gameObject.SetActive(false);
                     previousSection = currentContent;
-                    Canvas p1 = panels[currentContent + 1].transform.GetChild(2).gameObject.GetComponent<Canvas>();
-                    p1.sortingOrder = -(currentContent + 1);
+                    Canvas p1 = panels[sortinglayer + 1].transform.GetChild(2).gameObject.GetComponent<Canvas>();
+                    p1.sortingOrder = -(sortinglayer);
+                    ++sortinglayer;
                 }
                 else if (type == 2)
                 {
+                    /*
                     TextMeshProUGUI presection = panels[currentContent + 1].transform.GetChild(2).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
                     TextMeshProUGUI section = panels[currentContent + 1].transform.GetChild(3).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
                     section.text = headers[currentContent];
@@ -243,9 +251,12 @@ public class OnResultClick : MonoBehaviour
                     Canvas p2 = panels[currentContent + 1].transform.GetChild(3).gameObject.GetComponent<Canvas>();
                     p1.sortingOrder = -(currentContent + 1);
                     p2.sortingOrder = -(currentContent + 1);
+                    */
+                    textcontent += "<size=24><b><color=#0000ffff>" + headers[currentContent] + "</color></b></size>\n  ";
                 }
                 else if (type == 3)
                 {
+                    /*
                     TextMeshProUGUI presection = panels[currentContent + 1].transform.GetChild(2).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
                     TextMeshProUGUI presubsection = panels[currentContent + 1].transform.GetChild(3).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
                     TextMeshProUGUI section = panels[currentContent + 1].transform.GetChild(4).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
@@ -262,9 +273,15 @@ public class OnResultClick : MonoBehaviour
                     p1.sortingOrder = -(currentContent + 1);
                     p2.sortingOrder = -(currentContent + 1);
                     p3.sortingOrder = -(currentContent + 1);
+                     */
+                    textcontent += "<size=20><b><color=#008080ff>" + headers[currentContent] + "</color></b><size=24>\n  ";
+
                 }
                 else if (type == 4)
                 {
+                    textcontent += "<b>" + headers[currentContent] + "</b>\n  ";
+
+                    /*
                     TextMeshProUGUI presection = panels[currentContent + 1].transform.GetChild(2).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
                     TextMeshProUGUI presubsection = panels[currentContent + 1].transform.GetChild(3).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
                     TextMeshProUGUI presubsubsection = panels[currentContent + 1].transform.GetChild(4).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
@@ -284,16 +301,26 @@ public class OnResultClick : MonoBehaviour
                     p2.sortingOrder = -(currentContent + 1);
                     p3.sortingOrder = -(currentContent + 1);
                     p4.sortingOrder = -(currentContent + 1);
+
+                    */
                 }
                 ++currentContent;
+
             }
             else
             if (item.Text() != "" && !item.OuterHtml.Contains("</html>") && !item.OuterHtml.Contains("</body>") && !item.OuterHtml.Contains("</ul>"))
             {
-                textcontent += item.Text() + '\n';
+                if (!textcontent.Contains("</il>"))
+                {
+                    textcontent += item.Text() + '\n';
+                }
+                else {
+                    textcontent += "-" + item.Text() + '\n';
+
+                }
             }
         }
-        panels[currentContent].transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = textcontent.Trim();
+        panels[sortinglayer].transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = textcontent.Trim();
         pretitle = currenttitle;
         if(!dicpanels.ContainsKey(currenttitle))
             dicpanels.Add(currenttitle, panels);
