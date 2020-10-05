@@ -10,7 +10,7 @@ using TMPro;
 using System.Threading;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
-
+using Coffee.UIEffects;
 
 public class OnResultClick : MonoBehaviour
 {
@@ -97,13 +97,11 @@ public class OnResultClick : MonoBehaviour
                             imagepanels.Add(Instantiate(Resources.Load("Prefabs/ImageBlock", typeof(GameObject)), new Vector3(-14 + i * 12  , 0, -24), new Quaternion(0,180f,0,0)) as GameObject);
                             StartCoroutine(ShowImage(GetImageFromUrl + title, i));
                             ++i;
-                            yield return new WaitForSeconds(0.5f);
+                            yield return new WaitForSeconds(1f);
                         }
                     }
 
                 }
-
-                //StartCoroutine(HTMLParse());
             }
         }
     }
@@ -121,6 +119,7 @@ public class OnResultClick : MonoBehaviour
             int width = 600 * _width / _height;
             int height = 600 * _height / _width;
             imagepanels[i].GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
+            imagepanels[i].GetComponent<UIDissolve>().Play();
             imagepanels[i].GetComponent<RawImage>().texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
         }
 
@@ -137,15 +136,8 @@ public class OnResultClick : MonoBehaviour
         {
             StartCoroutine(ShowPage());
         }
-        //HTMLParse();
+    }
 
-    }
-    /*
-    public void ShowPage(){
-        currenttitle = title.text;
-        html = WikipediaApi.ShowPage(currenttitle);
-    }
-    */
     void Awake()
     {
         btn.onClick.AddListener(OnButtonClick);
@@ -201,6 +193,8 @@ public class OnResultClick : MonoBehaviour
         //int previousSubSubsection = 0;
         panels.Add(Instantiate(Resources.Load("Prefabs/Content", typeof(GameObject)), new Vector3(-2, -3.5f, 0), Quaternion.identity) as GameObject);
         panels[0].transform.GetChild(0).GetChild(0).gameObject.GetComponent<Text>().text = currenttitle;
+        panels[0].transform.GetChild(0).GetComponent<UIDissolve>().Play();
+        panels[0].transform.GetChild(1).GetComponent<UIDissolve>().Play();
         panels[0].transform.GetChild(2).gameObject.SetActive(false);
         panels[0].transform.GetChild(3).gameObject.SetActive(false);
         panels[0].transform.GetChild(4).gameObject.SetActive(false);
@@ -216,9 +210,11 @@ public class OnResultClick : MonoBehaviour
                     // move them out if want to move back
                     panels[sortinglayer].transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = textcontent.Trim();
                     textcontent = "";
-                    yield return new WaitForSeconds(0.5f);
+                    yield return new WaitForSeconds(1f);
                     panels.Add(Instantiate(Resources.Load("Prefabs/Content", typeof(GameObject)), new Vector3(-2 - 8 * (1 + sortinglayer), -3.5f, 0), Quaternion.identity) as GameObject);
+                    
                     Canvas p = panels[sortinglayer + 1].transform.GetChild(1).gameObject.GetComponent<Canvas>();
+                    panels[sortinglayer + 1].transform.GetChild(1).gameObject.GetComponent<UIDissolve>().Play();
                     p.sortingOrder = -(sortinglayer);
                     //
 
@@ -232,6 +228,7 @@ public class OnResultClick : MonoBehaviour
                     //panels[currentContent + 1].transform.GetChild(5).gameObject.SetActive(false);
                     previousSection = currentContent;
                     Canvas p1 = panels[sortinglayer + 1].transform.GetChild(2).gameObject.GetComponent<Canvas>();
+                    panels[sortinglayer + 1].transform.GetChild(2).GetComponent<UIDissolve>().Play();
                     p1.sortingOrder = -(sortinglayer);
                     ++sortinglayer;
                 }

@@ -696,6 +696,7 @@ GameObject:
   - component: {fileID: 3350547219292675955}
   - component: {fileID: 3350547219292675953}
   - component: {fileID: 851005610329241643}
+  - component: {fileID: 7325506816187378907}
   m_Layer: 5
   m_Name: TextBlock
   m_TagString: Untagged
@@ -791,6 +792,34 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &7325506816187378907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3350547219292675958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce76b7a490bd74f34a2f2752641aea24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectFactor: 1
+  m_Width: 0.5
+  m_Softness: 0.5
+  m_Color: {r: 0, g: 1, b: 0.12997723, a: 1}
+  m_ColorMode: 2
+  m_TransitionTexture: {fileID: 2800000, guid: 3e04c247fb2604af186173fce0bc62de, type: 3}
+  m_EffectArea: 0
+  m_KeepAspectRatio: 0
+  m_Player:
+    play: 0
+    initialPlayDelay: 0
+    duration: 2.02
+    loop: 0
+    loopDelay: 0
+    updateMode: 0
+  m_Reverse: 1
 --- !u!1 &3350547220346638798
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,6 +1040,7 @@ GameObject:
   - component: {fileID: 3350547220422604782}
   - component: {fileID: 2337405189664510569}
   - component: {fileID: 8104688202900147556}
+  - component: {fileID: 1781111861634999535}
   m_Layer: 5
   m_Name: Section
   m_TagString: Untagged
@@ -1093,6 +1123,34 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1781111861634999535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3350547220422604781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce76b7a490bd74f34a2f2752641aea24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectFactor: 1
+  m_Width: 0.5
+  m_Softness: 0.5
+  m_Color: {r: 0, g: 1, b: 0.12997723, a: 1}
+  m_ColorMode: 2
+  m_TransitionTexture: {fileID: 2800000, guid: 3e04c247fb2604af186173fce0bc62de, type: 3}
+  m_EffectArea: 0
+  m_KeepAspectRatio: 0
+  m_Player:
+    play: 0
+    initialPlayDelay: 0
+    duration: 2.02
+    loop: 0
+    loopDelay: 0
+    updateMode: 0
+  m_Reverse: 1
 --- !u!1 &3350547220468976113
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,6 +1164,7 @@ GameObject:
   - component: {fileID: 3350547220468976077}
   - component: {fileID: 3350547220468976114}
   - component: {fileID: 3350547220468976115}
+  - component: {fileID: 5042034971114664767}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -1204,6 +1263,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
+--- !u!114 &5042034971114664767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3350547220468976113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce76b7a490bd74f34a2f2752641aea24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectFactor: 1
+  m_Width: 0.5
+  m_Softness: 0.5
+  m_Color: {r: 0, g: 1, b: 0.12997723, a: 1}
+  m_ColorMode: 2
+  m_TransitionTexture: {fileID: 2800000, guid: 3e04c247fb2604af186173fce0bc62de, type: 3}
+  m_EffectArea: 0
+  m_KeepAspectRatio: 0
+  m_Player:
+    play: 0
+    initialPlayDelay: 0
+    duration: 2.02
+    loop: 0
+    loopDelay: 0
+    updateMode: 0
+  m_Reverse: 1
 --- !u!1 &3518527909489319071
 GameObject:
   m_ObjectHideFlags: 0

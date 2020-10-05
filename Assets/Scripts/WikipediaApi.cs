@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
+using Coffee.UIEffects;
 
 public class WikipediaApi : MonoBehaviour
 {
@@ -63,6 +64,7 @@ public class WikipediaApi : MonoBehaviour
         foreach(var result in values.query.search){
             buttons[i].SetActive(true);
             texts[i].text = (string)result["title"];
+            buttons[i].GetComponent<UIDissolve>().Play();
             ++i;
             yield return new WaitForSeconds(1);
         }
