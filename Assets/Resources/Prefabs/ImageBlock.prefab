@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Player:
     play: 0
     initialPlayDelay: 0
-    duration: 1
+    duration: 2.63
     loop: 0
     loopDelay: 0
     updateMode: 0
