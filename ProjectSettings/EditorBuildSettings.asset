@@ -8,10 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Wikispace Scene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 0
+    path: Assets/Build-in/HTC.UnityPlugin/ViveInputUtility/Examples/4.Teleport/Teleport.unity
+    guid: 13596d03f1830884d93aa9d4521226f7
   m_configObjects:
-    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: aec53c7358456fa409fcc99a57e99376,
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: e7a40c21e43776741ade8e81df74d321,
       type: 2}
-    Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: fd48e950d43e8354ca66fec214d40911,
+    Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 41a0f0d03bf2806428c265aab9b0eb0c,
       type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 971742b3997581a4e99dd7a0184e07be,
       type: 2}
