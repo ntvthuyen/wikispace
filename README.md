@@ -1,5 +1,11 @@
 # WIKISPACE
-Reading Wikipedia in VR
+Reading Wikipedia in VR with a model bank for visualizing some articles.
+This project using Wikipedia API English
+## Members
+Nguyen Truong Vinh Thuyen
+Dao Hieu
+Nguyen Diep Xuan Quang
+Nguyen Hoang Tan
 ## Credits:
 - VIVE Input Utility
 - JSON .NET For Unity
