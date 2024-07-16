@@ -1,11 +1,22 @@
-# WIKISPACE
+![image](https://github.com/user-attachments/assets/c8106bb1-1e5e-4f9f-9801-1a31f112e2d1)# WIKISPACE
 Reading Wikipedia in VR with a model bank for visualizing some articles. 
+
+![img](https://ntvthuyen.com/assets/wikispace_banner.png)
 
 Support some kinds of VR/MR devices from different brands. 
 
 We also provide a simulation version for user don't have VR/MR devices. 
 
 This project using Wikipedia API English for query article contents and images.
+
+## Screenshots
+
+![img](https://ntvthuyen.com/assets/wikipedia_(3).png)
+![img](https://ntvthuyen.com/assets/wikipedia_(4).png)
+![img](https://ntvthuyen.com/assets/wikipedia_(6).png)
+![img](https://ntvthuyen.com/assets/wikipedia_(7).png)
+![img](https://ntvthuyen.com/assets/wikipedia_(8).png)
+![img](https://ntvthuyen.com/assets/wikipedia_(9).png)
 
 ## Unity version
 2019.4.8f1
