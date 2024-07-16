@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/c8106bb1-1e5e-4f9f-9801-1a31f112e2d1)# WIKISPACE
+# WIKISPACE
 Reading Wikipedia in VR with a model bank for visualizing some articles. 
 
 ![img](https://ntvthuyen.com/assets/wikispace_banner.png)
